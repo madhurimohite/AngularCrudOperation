@@ -1,0 +1,61 @@
+<div class="container">
+  <h4 class="page-title">Employee details</h4>
+  <p>
+    <button (click)="getForAddNew()" class="btn btn-primary" ><span class="glyphicon glyphicon-plus-sign"></span> Add New</button>
+  </p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr style="background-color: darkgrey">
+        <th>Id</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Action</th>
+      </tr>
+    <tbody>
+      <ng-template ngFor let-data [ngForOf]="emplist">
+        <tr>
+          <td>{{data.EmpID}}</td>
+          <td>{{data.Name}}</td>
+          <td>{{data.City}}</td>
+          <td>
+            <button class="btn btn-primary btn-xs" (click)="getForEdit(data.EmpID)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+            &nbsp;
+            <button class="btn btn-primary btn-xs" (click)="getForDelete(data.EmpID)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Employee Details - {{operation}}</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="hdnEmpId" [(ngModel)]="empForm.EmpId">
+            <div class="form-group">
+              <label>Name:</label>
+              <input type="text" id="txtName" class="form-control" [(ngModel)]="empForm.Name">
+            </div>
+            <div class="form-group">
+                <label>City:</label>
+                <input type="text" id="txtCity" class="form-control" [(ngModel)]="empForm.City">
+              </div>
+        </div>
+        <div class="modal-footer">
+            <button *ngIf="boolSave" type="button" class="btn btn-primary" (click)="save(empForm)">Save</button>
+            <button *ngIf="boolUpdate" type="button" class="btn btn-primary" (click)="update(empForm)">Update</button>
+            <button *ngIf="boolDelete" type="button" class="btn btn-primary" (click)="delete(empForm.EmpID)">Confirm Delete</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
